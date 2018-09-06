@@ -22,6 +22,7 @@ namespace StampieAppServer
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             IocContainer.Setup();
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new AuthorizationHeaderHandler());
         }
     }
 }

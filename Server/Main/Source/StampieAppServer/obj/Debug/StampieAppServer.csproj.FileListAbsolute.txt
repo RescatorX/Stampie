@@ -119,8 +119,11 @@ C:\Work\Stampie\Server\Main\Source\StampieAppServer\bin\Microsoft.AI.DependencyC
 C:\Work\Stampie\Server\Main\Source\StampieAppServer\bin\Microsoft.AI.WindowsServer.xml
 C:\Work\Stampie\Server\Main\Source\StampieAppServer\bin\Microsoft.AI.Web.xml
 C:\Work\Stampie\Server\Main\Source\StampieAppServer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Work\Stampie\Server\Main\Source\StampieAppServer\obj\Debug\StampieAppServer.csprojAssemblyReference.cache
 C:\Work\Stampie\Server\Main\Source\StampieAppServer\obj\Debug\StampieAppServer.csproj.CoreCompileInputs.cache
 C:\Work\Stampie\Server\Main\Source\StampieAppServer\obj\Debug\StampieAppServer.csproj.CopyComplete
 C:\Work\Stampie\Server\Main\Source\StampieAppServer\obj\Debug\StampieAppServer.dll
 C:\Work\Stampie\Server\Main\Source\StampieAppServer\obj\Debug\StampieAppServer.pdb
+C:\Work\Stampie\Server\Main\Source\StampieAppServer\bin\Castle.Core.dll
+C:\Work\Stampie\Server\Main\Source\StampieAppServer\bin\Castle.Windsor.dll
+C:\Work\Stampie\Server\Main\Source\StampieAppServer\bin\Castle.Core.xml
+C:\Work\Stampie\Server\Main\Source\StampieAppServer\bin\Castle.Windsor.xml

@@ -13,11 +13,11 @@ namespace StampieAppServer.Data.Entities
         public Guid Id { get; set; }
 
         [Required]
-        [ForeignKey("UserId")]
+        [ForeignKey("Id")]
         public User User { get; set; }
 
         [Required]
-        [ForeignKey("GameId")]
+        [ForeignKey("Id")]
         public Game Game { get; set; }
 
         [Required]

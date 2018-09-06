@@ -18,22 +18,22 @@ namespace StampieAppServer.Data.Entities
         public CommentType Type { get; set; }
 
         [Required]
-        [ForeignKey("CreatorId")]
+        [ForeignKey("Id")]
         public User Creator { get; set; }
 
-        [ForeignKey("ParentId")]
+        [ForeignKey("Id")]
         public Comment Parent { get; set; }
 
-        [ForeignKey("StampId")]
+        [ForeignKey("Id")]
         public Stamp Stamp { get; set; }
 
-        [ForeignKey("PhotoId")]
+        [ForeignKey("Id")]
         public Photo Photo { get; set; }
 
-        [ForeignKey("GameId")]
+        [ForeignKey("Id")]
         public Game Game { get; set; }
 
-        [ForeignKey("StatisticId")]
+        [ForeignKey("Id")]
         public Statistic Statistic { get; set; }
 
         [Required]

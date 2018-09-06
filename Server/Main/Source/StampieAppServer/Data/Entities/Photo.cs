@@ -12,7 +12,7 @@ namespace StampieAppServer.Data.Entities
         [Key]
         public Guid Id { get; set; }
 
-        [ForeignKey("CreatorId")]
+        [ForeignKey("Id")]
         public User Creator { get; set; }
 
         public string Description { get; set; }

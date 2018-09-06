@@ -13,7 +13,7 @@ namespace StampieAppServer.Data.Entities
         public Guid Id { get; set; }
 
         [Required]
-        [ForeignKey("AcountId")]
+        [ForeignKey("Id")]
         public Account Account { get; set; }
 
         public string Firstname { get; set; }
