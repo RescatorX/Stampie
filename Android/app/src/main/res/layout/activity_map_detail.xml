@@ -1,0 +1,396 @@
+﻿<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/PageOrdMapsDetail" 
+    android:orientation="vertical"
+    android:scrollbars="vertical"
+	android:layout_width="fill_parent" 
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/white">
+	    
+        <TableLayout 
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:stretchColumns="1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        
+			<TableRow>
+	
+			    <LinearLayout
+				    android:orientation="horizontal"
+				    android:layout_gravity="left"
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content">
+		    
+					<ImageView
+				    	android:id="@+id/LekMapsDetailIcon"
+				     	android:layout_gravity="center_horizontal"
+				     	android:paddingLeft="10dp"
+				     	android:paddingTop="4dp"
+				        android:layout_width="45dp"
+				        android:layout_height="45dp"/>
+				
+			    	<TextView
+				    	android:id="@+id/LekMapsDetailType"
+				    	android:layout_marginTop="2dp"
+						android:paddingLeft="10dp"
+						android:paddingRight="10dp"
+						android:textSize="18dp"
+						android:textColor="@drawable/black"
+						android:paddingTop="10dp"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"/>
+		
+			   	</LinearLayout>
+			    	
+				<Button 
+				    android:id="@+id/LekMapsDetailLekariBtn"
+				    android:layout_marginRight="20dp"
+				    android:paddingRight="10dp"
+			    	android:layout_gravity="right"
+			    	android:drawableLeft="@drawable/mapdet_gears"
+			    	android:layout_width="50dp"
+			    	android:layout_height="50dp"/> 			
+					
+			</TableRow>
+			
+		</TableLayout>
+	
+		<TextView
+	    	android:id="@+id/LekMapsDetailName"
+			android:paddingLeft="20dp"
+			android:textSize="24dp"
+			android:textColor="@drawable/gray"
+			android:paddingTop="5dp"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"/>
+		
+		<TextView
+	        android:layout_width="fill_parent"
+	    	android:layout_height="2dp"
+	        android:background="@drawable/gray" />
+		
+		<TextView
+	    	android:text="Odbornosti"
+			android:paddingLeft="20dp"
+			android:textSize="24dp"
+			android:textColor="@drawable/purple"
+			android:paddingTop="5dp"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"/>
+		
+		<ListView
+	    	android:id="@+id/LekMapsDetailOdbListView"
+	    	android:paddingLeft="20dp"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:divider="@null"
+	    	android:cacheColorHint="#00000000">
+	    </ListView>
+    
+		<TextView
+	        android:layout_width="fill_parent"
+	    	android:layout_height="2dp"
+	        android:background="@drawable/gray" />
+		
+		<TextView
+	    	android:text="Adresa"
+			android:paddingLeft="20dp"
+			android:textSize="24dp"
+			android:textColor="@drawable/purple"
+			android:paddingTop="5dp"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"/>
+		
+		<TableLayout
+			android:layout_marginLeft="15dp"
+			android:layout_marginRight="15dp"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="15dp"
+			android:stretchColumns="1"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			
+		    <TableRow
+		    	android:layout_marginTop="3dp">
+		    	
+		    	<TextView
+		    		android:layout_column="1"
+					android:text="Ulice"
+					android:textSize="20dp"
+					android:textColor="@drawable/gray"
+					android:gravity="left"
+					android:width="70dp"
+					android:paddingLeft="10dp"/> 
+			
+				<TextView
+					android:id="@+id/LekMapsDetailUlice"
+					android:textSize="20dp"
+					android:textColor="@drawable/black"
+					android:layout_gravity="left"
+					android:gravity="left"/> 
+		    	
+		    </TableRow>
+		    
+		    <TableRow
+		    	android:layout_marginTop="3dp">
+		    	
+				<TextView
+					android:layout_column="1"
+					android:text="Město"
+					android:textSize="20dp"
+					android:textColor="@drawable/gray"
+					android:gravity="left"
+					android:width="70dp"
+					android:paddingLeft="10dp"/> 
+			
+				<TextView
+					android:id="@+id/LekMapsDetailMesto"
+					android:textSize="20dp"
+					android:textColor="@drawable/black"
+					android:layout_gravity="left"
+					android:gravity="left"/> 
+			    	    	
+		    </TableRow>
+		    
+		    <TableRow
+		    	android:layout_marginTop="3dp">
+		    	
+				<TextView
+					android:layout_column="1"
+					android:text="PSČ"
+					android:textSize="20dp"
+					android:textColor="@drawable/gray"
+					android:gravity="left"
+					android:width="70dp"
+					android:paddingLeft="10dp"/> 
+			
+				<TextView
+					android:id="@+id/LekMapsDetailPSC"
+					android:textSize="20dp"
+					android:textColor="@drawable/black"
+					android:layout_gravity="left"
+					android:gravity="left"/> 
+			    	    	
+		    </TableRow>
+		    
+		</TableLayout>
+		
+		<TextView
+	    	android:text="Spojení"
+			android:paddingLeft="20dp"
+			android:textSize="24dp"
+			android:textColor="@drawable/purple"
+			android:paddingTop="5dp"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"/>
+		
+		<Button 
+	    	android:id="@+id/LekMapsDetailTelefonBtn"
+	    	android:textSize="20dp"
+	    	android:drawableLeft="@drawable/mapdet_phone"
+	    	android:drawablePadding="5dp"
+	    	android:paddingLeft="20dp"
+	    	android:gravity="left|center_vertical"
+	    	android:layout_gravity="center_horizontal"
+	    	android:layout_centerHorizontal="true"
+	    	android:layout_marginTop="15dp"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"/> 
+	    
+		<Button 
+	    	android:id="@+id/LekMapsDetailMobilBtn"
+	    	android:textSize="20dp"
+	    	android:drawableLeft="@drawable/mapdet_mobil"
+	    	android:drawablePadding="5dp"
+	    	android:paddingLeft="20dp"
+	    	android:gravity="left|center_vertical"
+	    	android:layout_gravity="center_horizontal"
+	    	android:layout_centerHorizontal="true"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"/> 
+	    	
+		<Button 
+	    	android:id="@+id/LekMapsDetailEmailBtn"
+	    	android:textSize="20dp"
+	    	android:drawableLeft="@drawable/mapdet_email"
+	    	android:drawablePadding="5dp"
+	    	android:paddingLeft="20dp"
+	    	android:gravity="left|center_vertical"
+	    	android:layout_gravity="center_horizontal"
+	    	android:layout_centerHorizontal="true"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"/> 
+	    	
+		<Button 
+	    	android:id="@+id/LekMapsDetailWebBtn"
+	    	android:textSize="20dp"
+	    	android:drawableLeft="@drawable/mapdet_web"
+	    	android:drawablePadding="5dp"
+	    	android:paddingLeft="20dp"
+	    	android:gravity="left|center_vertical"
+	    	android:layout_gravity="center_horizontal"
+	    	android:layout_centerHorizontal="true"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"/>
+		
+		<TextView
+	    	android:text="Ordinační doba"
+	    	android:id="@+id/LekMapsDetailOrdDobTitle"
+			android:paddingLeft="20dp"
+			android:textSize="24dp"
+			android:textColor="@drawable/purple"
+			android:paddingTop="5dp"
+			android:paddingBottom="5dp"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"/>
+			 
+		<HorizontalScrollView
+		    android:paddingLeft="20dp"
+			android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content">
+	    
+		    <LinearLayout
+			    android:orientation="horizontal"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content">
+			    
+				<LinearLayout
+				    android:orientation="vertical"
+				    android:layout_width="80dp"
+				    android:layout_height="wrap_content">
+					        
+					<TextView
+				    	android:text="Pondělí"
+						android:textSize="16dp"
+						android:textColor="@drawable/gray"
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:text="Úterý"
+						android:textSize="16dp"
+						android:textColor="@drawable/gray"
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:text="Středa"
+						android:textSize="16dp"
+						android:textColor="@drawable/gray"
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:text="Čtvrtek"
+						android:textSize="16dp"
+						android:textColor="@drawable/gray"
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:text="Pátek"
+						android:textSize="16dp"
+						android:textColor="@drawable/gray"
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:text="Sobota"
+						android:textSize="16dp"
+						android:textColor="@drawable/gray"
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:text="Neděle"
+						android:textSize="16dp"
+						android:textColor="@drawable/gray"
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				        android:layout_width="fill_parent"
+				    	android:layout_height="30dp"
+				        android:background="@drawable/white" />
+					
+				</LinearLayout>
+		
+			    <LinearLayout
+				    android:orientation="vertical"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content">
+				    
+				    <TextView
+				    	android:id="@+id/LekMapsDetailOrdPo"						
+						android:textSize="16dp"
+						android:textColor="@drawable/black"
+						android:layout_width="500dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:id="@+id/LekMapsDetailOrdUt"
+						android:textSize="16dp"
+						android:textColor="@drawable/black"
+						android:layout_width="500dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:id="@+id/LekMapsDetailOrdSt"
+						android:textSize="16dp"
+						android:textColor="@drawable/black"
+						android:layout_width="500dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:id="@+id/LekMapsDetailOrdCt"
+						android:textSize="16dp"
+						android:textColor="@drawable/black"
+						android:layout_width="500dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:id="@+id/LekMapsDetailOrdPa"
+						android:textSize="16dp"
+						android:textColor="@drawable/black"
+						android:layout_width="500dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:id="@+id/LekMapsDetailOrdSo"
+						android:textSize="16dp"
+						android:textColor="@drawable/black"
+						android:layout_width="500dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				    	android:id="@+id/LekMapsDetailOrdNe"
+						android:textSize="16dp"
+						android:textColor="@drawable/black"
+						android:layout_width="500dp"
+						android:layout_height="wrap_content"/>
+					
+					<TextView
+				        android:layout_width="fill_parent"
+				    	android:layout_height="30dp"
+				        android:background="@drawable/white" />
+					
+				</LinearLayout>
+		
+			</LinearLayout>
+			    
+		</HorizontalScrollView>
+		
+		<TextView
+	        android:layout_width="fill_parent"
+	    	android:layout_height="30dp"
+	        android:background="@drawable/white" />
+		
+	</LinearLayout>
+	 	
+</ScrollView>
