@@ -12,28 +12,20 @@ namespace StampieAppServer.Data.Entities
     public class Comment : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [Required]
         public CommentType Type { get; set; }
 
         [Required]
-        [ForeignKey("Id")]
         public User Creator { get; set; }
 
-        [ForeignKey("Id")]
         public Comment Parent { get; set; }
 
-        [ForeignKey("Id")]
         public Stamp Stamp { get; set; }
-
-        [ForeignKey("Id")]
         public Photo Photo { get; set; }
-
-        [ForeignKey("Id")]
         public Game Game { get; set; }
-
-        [ForeignKey("Id")]
         public Statistic Statistic { get; set; }
 
         [Required]

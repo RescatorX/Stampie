@@ -12,6 +12,7 @@ namespace StampieAppServer.Data.Entities
     public class Stamp : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [Required]

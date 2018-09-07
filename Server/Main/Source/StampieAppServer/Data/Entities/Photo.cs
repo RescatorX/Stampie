@@ -10,9 +10,9 @@ namespace StampieAppServer.Data.Entities
     public class Photo : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        [ForeignKey("Id")]
         public User Creator { get; set; }
 
         public string Description { get; set; }

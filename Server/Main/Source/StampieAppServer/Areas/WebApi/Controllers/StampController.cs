@@ -15,7 +15,10 @@ namespace StampieAppServer.Areas.WebApi.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        [Route("stamps/getAllStamps")]
+        //http://localhost:50046/webapi/stamp/getAllStamps
+
+        [HttpGet]
+        [System.Web.Mvc.Route("stamp/getAllStamps")]
         public IEnumerable<Stamp> GetAllStamps()
         {
             // get the IApiExplorer registered automatically
@@ -46,10 +49,28 @@ namespace StampieAppServer.Areas.WebApi.Controllers
             return db.Stamps;
         }
 
-        [Route("stamps/getUserStamps")]
-        public IEnumerable<Stamp> GetUserStamps(User user)
+        [HttpGet]
+        [Authorize]
+        [System.Web.Mvc.Route("stamp/getUserStamps")]
+        public IEnumerable<Stamp> GetUserStamps(Guid userId)
         {
-            return db.UserStamps.Where(us => us.User == user).Select(us => us.Stamp);
+            return db.UserStamps.Where(us => us.User.Id == userId).Select(us => us.Stamp);
+        }
+
+        [HttpPut]
+        [Authorize]
+        [System.Web.Mvc.Route("stamp/addUserStamp")]
+        public UserStamp AddUserStamp(Guid userId, Guid stampId)
+        {
+            UserStamp userStamp = new UserStamp();
+            userStamp.Achieved = DateTime.Now;
+            userStamp.User = db.AppUsers.Find(userId);
+            userStamp.Stamp = db.Stamps.Find(stampId);
+
+            userStamp = db.UserStamps.Add(userStamp);
+            db.SaveChanges();
+
+            return userStamp;
         }
     }
 

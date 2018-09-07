@@ -1,0 +1,3 @@
+﻿Enable-Migrations
+Add-Migration M01
+Update-Database -script

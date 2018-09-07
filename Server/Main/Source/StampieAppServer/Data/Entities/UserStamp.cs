@@ -10,14 +10,13 @@ namespace StampieAppServer.Data.Entities
     public class UserStamp : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [Required]
-        [ForeignKey("Id")]
         public User User { get; set; }
 
         [Required]
-        [ForeignKey("Id")]
         public Stamp Stamp { get; set; }
 
         [Required]

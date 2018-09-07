@@ -10,10 +10,10 @@ namespace StampieAppServer.Data.Entities
     public class Statistic : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [Required]
-        [ForeignKey("Id")]
         public User User { get; set; }
     }
 }

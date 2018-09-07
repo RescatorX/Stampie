@@ -33,7 +33,6 @@ namespace StampieAppServer.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<Account> Accounts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Photo> Photos { get; set; }

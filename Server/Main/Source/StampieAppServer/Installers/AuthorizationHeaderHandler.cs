@@ -41,6 +41,11 @@ namespace StampieAppServer.Installers
                 // Extract username and password from decoded token   
                 userName = decodedToken.Substring(0, decodedToken.IndexOf(":"));
                 password = decodedToken.Substring(decodedToken.IndexOf(":") + 1);
+
+                ApplicationDbContext db = new ApplicationDbContext();
+                ApplicationUser appUser = db.Users.FirstOrDefault(u => u.UserName == userName);
+                appUser.pa
+
                 // Verification.   
                 if (apiKeyHeaderValue.Equals(ApiInfo.API_KEY_VALUE) && userName.Equals(ApiInfo.USERNAME_VALUE) && password.Equals(ApiInfo.PASSWORD_VALUE))
                 {

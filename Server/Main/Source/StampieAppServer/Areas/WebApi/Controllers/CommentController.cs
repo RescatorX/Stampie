@@ -20,7 +20,7 @@ namespace StampieAppServer.Areas.WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("comments/getAllComments")]
+        [System.Web.Mvc.Route("comment/getAllComments")]
         public IEnumerable<Comment> GetAllComments()
         {
             return db.Comments;
@@ -28,7 +28,7 @@ namespace StampieAppServer.Areas.WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("comments/getUserComments")]
+        [System.Web.Mvc.Route("comment/getUserComments")]
         public IEnumerable<Comment> GetUserComments(User user)
         {
             return db.Comments.Where(c => c.Creator == user);
@@ -36,7 +36,7 @@ namespace StampieAppServer.Areas.WebApi.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("comments/addComment")]
+        [System.Web.Mvc.Route("comment/addComment")]
         public Comment AddComment([FromBody] AddCommentModel model)
         {
             Comment comment = new Comment();
@@ -54,7 +54,7 @@ namespace StampieAppServer.Areas.WebApi.Controllers
                 case CommentType.Statistic: comment.Statistic = (Statistic)model.CommentEntity; break;
             }
 
-            db.Comments.Add(comment);
+            comment = db.Comments.Add(comment);
             db.SaveChanges();
 
             return comment;
@@ -62,20 +62,24 @@ namespace StampieAppServer.Areas.WebApi.Controllers
 
         [HttpPut]
         [Authorize]
-        [Route("comments/editComment")]
-        public Comment EditComment(Guid id, [FromBody] string text)
+        [System.Web.Mvc.Route("comment/editComment")]
+        public Comment EditComment(Guid userId, Guid commentId, [FromBody] string text)
         {
-            Comment comment = db.Comments.FirstOrDefault(c => c.Id == id);
+            Comment comment = db.Comments.FirstOrDefault(c => c.Id == commentId);
             if (comment != null)
             {
-                User commentCreator = comment.Creator;
-                string commentCreatorName = string.Format("{0} {1}", commentCreator.Firstname, commentCreator.Lastname);
-
-                IPrincipal user = HttpContext.Current.User;
-                if ((user != null) && (((GenericIdentity)user.Identity).Name.Equals(commentCreatorName)))
+                User user = db.AppUsers.Find(userId);
+                if (user != null)
                 {
-                    comment.Text = text;
-                    db.SaveChanges();
+                    if ((user != null) && (user.Id.Equals(comment.Creator.Id)))
+                    {
+                        comment.Text = text;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        comment = null;
+                    }
                 }
                 else
                 {
@@ -88,7 +92,7 @@ namespace StampieAppServer.Areas.WebApi.Controllers
 
         [HttpPut]
         [Authorize]
-        [Route("comments/incPositiveRate")]
+        [System.Web.Mvc.Route("comment/incPositiveRate")]
         public Comment IncPositiveRate(Guid id)
         {
             Comment comment = db.Comments.FirstOrDefault(c => c.Id == id);
@@ -103,7 +107,7 @@ namespace StampieAppServer.Areas.WebApi.Controllers
 
         [HttpPut]
         [Authorize]
-        [Route("comments/incNegativeRate")]
+        [System.Web.Mvc.Route("comment/incNegativeRate")]
         public Comment IncNegativeRate(Guid id)
         {
             Comment comment = db.Comments.FirstOrDefault(c => c.Id == id);
