@@ -13,11 +13,13 @@ namespace StampieAppServer.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
+        [Required]
         public User Creator { get; set; }
 
+        public string Content { get; set; }
         public string Description { get; set; }
 
-        public double GpsPositionLat { get; set; }
-        public double GpsPositionLng { get; set; }
+        public double? GpsPositionLat { get; set; }
+        public double? GpsPositionLng { get; set; }
     }
 }

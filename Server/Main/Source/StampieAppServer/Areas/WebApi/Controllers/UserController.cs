@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -22,6 +23,14 @@ namespace StampieAppServer.Areas.WebApi.Controllers
             return db.AppUsers;
         }
 
+        [HttpGet]
+        [Authorize]
+        [System.Web.Mvc.Route("user/getUserById")]
+        public User GetUserById(Guid id)
+        {
+            return db.AppUsers.FirstOrDefault(u => u.Id == id);
+        }
+
         [HttpPost]
         [Authorize]
         [System.Web.Mvc.Route("user/addUser")]
@@ -30,6 +39,34 @@ namespace StampieAppServer.Areas.WebApi.Controllers
             user = db.AppUsers.Add(user);
             db.SaveChanges();
 
+            return user;
+        }
+
+        [HttpPut]
+        [Authorize]
+        [System.Web.Mvc.Route("user/changeUser")]
+        public User ChangeUser([FromBody] User user)
+        {
+            User existingUser = db.AppUsers.Find(user.Id);
+            if (existingUser != null)
+            {
+                db.AppUsers.AddOrUpdate(db.AppUsers.Find(user.Id), user);
+                db.SaveChanges();
+            }
+            return user;
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [System.Web.Mvc.Route("user/deleteUser")]
+        public User DeleteUser(Guid id)
+        {
+            User user = db.AppUsers.FirstOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                user = db.AppUsers.Remove(user);
+                db.SaveChanges();
+            }
             return user;
         }
 

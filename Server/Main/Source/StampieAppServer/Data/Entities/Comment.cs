@@ -23,10 +23,7 @@ namespace StampieAppServer.Data.Entities
 
         public Comment Parent { get; set; }
 
-        public Stamp Stamp { get; set; }
-        public Photo Photo { get; set; }
-        public Game Game { get; set; }
-        public Statistic Statistic { get; set; }
+        public Guid CommentEntity { get; set; }
 
         [Required]
         public string Text { get; set; }

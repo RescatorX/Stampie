@@ -226,7 +226,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\WebApi\Controllers\CommentController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\GameController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\PhotoController.cs" />
     <Compile Include="Areas\WebApi\Controllers\StampController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\StatisticController.cs" />
     <Compile Include="Areas\WebApi\Controllers\UserController.cs" />
     <Compile Include="Areas\WebApi\Models\AddCommentModel.cs" />
     <Compile Include="Areas\WebApi\WebApiAreaRegistration.cs" />
@@ -260,6 +263,18 @@
     <Compile Include="Migrations\201809071116071_M02.Designer.cs">
       <DependentUpon>201809071116071_M02.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809100956407_M03.cs" />
+    <Compile Include="Migrations\201809100956407_M03.Designer.cs">
+      <DependentUpon>201809100956407_M03.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809101033351_M04.cs" />
+    <Compile Include="Migrations\201809101033351_M04.Designer.cs">
+      <DependentUpon>201809101033351_M04.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809101222054_M05.cs" />
+    <Compile Include="Migrations\201809101222054_M05.Designer.cs">
+      <DependentUpon>201809101222054_M05.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApiInfo.cs" />
@@ -275,6 +290,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Data\Scripts\DB_Script_01.txt" />
     <Content Include="Data\Scripts\DB_Script_02.txt" />
+    <Content Include="Data\Scripts\DB_Script_03.txt" />
+    <Content Include="Data\Scripts\DB_Script_04.txt" />
+    <Content Include="Data\Scripts\DB_Script_05.txt" />
     <Content Include="Data\Scripts\Migrations.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -360,6 +378,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809071116071_M02.resx">
       <DependentUpon>201809071116071_M02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809100956407_M03.resx">
+      <DependentUpon>201809100956407_M03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809101033351_M04.resx">
+      <DependentUpon>201809101033351_M04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809101222054_M05.resx">
+      <DependentUpon>201809101222054_M05.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

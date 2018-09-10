@@ -1,33 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using StampieAppServer;
 using StampieAppServer.Controllers;
+using StampieAppServer.Models;
 
 namespace StampieAppServer.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
-        public void Index()
+        [TestInitialize]
+        public void TestInit()
         {
-            // Arrange
-            HomeController controller = new HomeController();
+            Console.WriteLine("Test init");
+        }
 
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
+        [TestCleanup]
+        public void TestDone()
+        {
+            Console.WriteLine("Test done");
         }
 
         [TestMethod]
         public void About()
         {
+            Console.WriteLine("Test run started");
+
             // Arrange
             HomeController controller = new HomeController();
 
@@ -36,19 +41,8 @@ namespace StampieAppServer.Tests.Controllers
 
             // Assert
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
 
-        [TestMethod]
-        public void Contact()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Contact() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
+            Console.WriteLine("Test run finished");
         }
     }
 }

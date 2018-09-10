@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using StampieAppServer.Models;
 
 namespace StampieAppServer.Installers
@@ -42,14 +43,17 @@ namespace StampieAppServer.Installers
                 userName = decodedToken.Substring(0, decodedToken.IndexOf(":"));
                 password = decodedToken.Substring(decodedToken.IndexOf(":") + 1);
 
-                ApplicationDbContext db = new ApplicationDbContext();
-                ApplicationUser appUser = db.Users.FirstOrDefault(u => u.UserName == userName);
-                appUser.pa
+                //ApplicationSignInManager signInManager = request.GetOwinContext().Get<ApplicationSignInManager>();
+                ApplicationUserManager userManager = request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                ApplicationSignInManager signInManager = request.GetOwinContext().GetUserManager<ApplicationSignInManager>();
 
-                // Verification.   
-                if (apiKeyHeaderValue.Equals(ApiInfo.API_KEY_VALUE) && userName.Equals(ApiInfo.USERNAME_VALUE) && password.Equals(ApiInfo.PASSWORD_VALUE))
+                ApplicationUser user = userManager.FindByName(userName);
+
+                //check for credentials before sign in ..    
+                var validCredentials = signInManager.UserManager.CheckPassword(user, password);
+                if (validCredentials)
                 {
-                    // Setting   
+                    // Setting principal  
                     var identity = new GenericIdentity(userName);
                     SetPrincipal(new GenericPrincipal(identity, null));
                 }

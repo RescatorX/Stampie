@@ -7,9 +7,9 @@ namespace StampieAppServer.Data.Codebooks
 {
     public enum CommentType
     {
-        Place,
-        Photo,
-        Game,
-        Statistic
+        Place     = 1,
+        Photo     = 2,
+        Game      = 3,
+        Statistic = 4
     }
 }

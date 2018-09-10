@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -23,36 +25,25 @@ namespace StampieAppServer.Areas.WebApi.Controllers
         [System.Web.Mvc.Route("comment/getAllComments")]
         public IEnumerable<Comment> GetAllComments()
         {
-            return db.Comments;
+            return db.Comments.Include(c => c.Creator);
         }
 
         [HttpGet]
         [Authorize]
         [System.Web.Mvc.Route("comment/getUserComments")]
-        public IEnumerable<Comment> GetUserComments(User user)
+        public IEnumerable<Comment> GetUserComments(Guid userId)
         {
-            return db.Comments.Where(c => c.Creator == user);
+            return db.Comments.Include(c => c.Creator).Where(c => c.Creator.Id == userId);
         }
 
         [HttpPost]
         [Authorize]
         [System.Web.Mvc.Route("comment/addComment")]
-        public Comment AddComment([FromBody] AddCommentModel model)
+        public Comment AddComment([FromBody] Comment comment)
         {
-            Comment comment = new Comment();
-            comment.Creator = model.Creator;
-            comment.Parent = model.Parent;
-            comment.Text = model.Text;
-            comment.PositiveRate = model.PositiveRate;
-            comment.NegativeRate = model.NegativeRate;
-            
-            switch (model.Type)
-            {
-                case CommentType.Place: comment.Stamp = (Stamp)model.CommentEntity; break;
-                case CommentType.Photo: comment.Photo = (Photo)model.CommentEntity; break;
-                case CommentType.Game: comment.Game = (Game)model.CommentEntity; break;
-                case CommentType.Statistic: comment.Statistic = (Statistic)model.CommentEntity; break;
-            }
+            comment.Creator = db.AppUsers.FirstOrDefault(u => u.Id == comment.Creator.Id);
+            comment.PositiveRate = 0;
+            comment.NegativeRate = 0;
 
             comment = db.Comments.Add(comment);
             db.SaveChanges();
@@ -62,12 +53,27 @@ namespace StampieAppServer.Areas.WebApi.Controllers
 
         [HttpPut]
         [Authorize]
-        [System.Web.Mvc.Route("comment/editComment")]
-        public Comment EditComment(Guid userId, Guid commentId, [FromBody] string text)
+        [System.Web.Mvc.Route("comment/changeComment")]
+        public Comment ChangeComment([FromBody] Comment comment)
+        {
+            Comment existingComment = db.Comments.Find(comment.Id);
+            if (existingComment != null)
+            {
+                db.Comments.AddOrUpdate(db.Comments.Find(comment.Id), comment);
+                db.SaveChanges();
+            }
+            return comment;
+        }
+
+        [HttpPut]
+        [Authorize]
+        [System.Web.Mvc.Route("comment/editCommentText")]
+        public Comment EditCommentText(Guid userId, Guid commentId, [FromBody] string text)
         {
             Comment comment = db.Comments.FirstOrDefault(c => c.Id == commentId);
             if (comment != null)
             {
+                // only the creator can update a comment text
                 User user = db.AppUsers.Find(userId);
                 if (user != null)
                 {
