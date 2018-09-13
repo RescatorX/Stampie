@@ -18,7 +18,7 @@ public interface IGenericDAO<T extends BaseEntity> {
      * @param db Database object.
      * @return Found POJO or null.
      */
-    public T findById(String id, Database db) throws STPException;
+    public T findById(long id, Database db) throws STPException;
 
     /**
      * Find all items.
@@ -57,7 +57,7 @@ public interface IGenericDAO<T extends BaseEntity> {
      * @param db Database object.
      * @return Data of the updated item.
      */
-    public T update(String id, T entity, Database db) throws STPException;
+    public T update(long id, T entity, Database db) throws STPException;
 
     /**
      * Delete an item using data in the given POJO.
@@ -66,7 +66,7 @@ public interface IGenericDAO<T extends BaseEntity> {
      * @param db Database object.
      * @return true in case the deleting was successful, false otherwise.
      */
-    public boolean delete(String id, Database db) throws STPException;
+    public boolean delete(long id, Database db) throws STPException;
 
     /**
      * Getting the class to identify the type of the entity.

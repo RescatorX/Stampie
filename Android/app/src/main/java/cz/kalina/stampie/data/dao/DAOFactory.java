@@ -5,7 +5,9 @@ import android.util.Log;
 import cz.kalina.stampie.MainActivity;
 import cz.kalina.stampie.data.Database;
 import cz.kalina.stampie.data.dao.impl.ExtDataDAO;
+import cz.kalina.stampie.data.dao.impl.PhotoDAO;
 import cz.kalina.stampie.data.dao.intf.IExtDataDAO;
+import cz.kalina.stampie.data.dao.intf.IPhotoDAO;
 
 public class DAOFactory {
 
@@ -77,5 +79,14 @@ public class DAOFactory {
      */
     public IExtDataDAO getExtDataDAO() {
         return new ExtDataDAO();
+    }
+
+    /**
+     * Factory method to provide an instance of the IPhotoDAO.
+     *
+     * @return IPhotoDAO to access the table with photos.
+     */
+    public IPhotoDAO getPhotoDAO() {
+        return new PhotoDAO();
     }
 }

@@ -13,7 +13,7 @@ import cz.kalina.stampie.utils.STPException;
 public abstract class GenericDAO<T extends BaseEntity> implements IGenericDAO<T> {
 
     @Override
-    public T findById(String id, Database db) throws STPException {
+    public T findById(long id, Database db) throws STPException {
 
         T foundPojo = null;
         Cursor cursor = null;
@@ -82,7 +82,7 @@ public abstract class GenericDAO<T extends BaseEntity> implements IGenericDAO<T>
     }
 
     @Override
-    public T update(String id, T entity, Database db) throws STPException {
+    public T update(long id, T entity, Database db) throws STPException {
 
         db.getDb().update(getEntityNameOfTable(), copyEntityToCursor(entity, db), getEntityNameOfIdCollumn() + " = " + id, null);
 
@@ -90,7 +90,7 @@ public abstract class GenericDAO<T extends BaseEntity> implements IGenericDAO<T>
     }
 
     @Override
-    public boolean delete(String id, Database db) throws STPException {
+    public boolean delete(long id, Database db) throws STPException {
 
         int rows = db.getDb().delete(getEntityNameOfTable(), getEntityNameOfIdCollumn() + " = " + id, null);
 

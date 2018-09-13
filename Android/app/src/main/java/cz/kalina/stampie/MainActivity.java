@@ -28,6 +28,7 @@ import java.util.List;
 
 import cz.kalina.stampie.data.Database;
 import cz.kalina.stampie.data.adapters.ImageClassAdapter;
+import cz.kalina.stampie.data.entities.User;
 import cz.kalina.stampie.pages.MapActivity;
 import cz.kalina.stampie.pages.PhotosActivity;
 import cz.kalina.stampie.pages.ReviewsActivity;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static Activity activity = null;
     private static Context ctx = null;
+
+    public static User activeUser = null;
 
     private static final List<ImageClassPair<Integer, Class>> pageIdentList = new ArrayList<ImageClassPair<Integer, Class>>(); {
         {

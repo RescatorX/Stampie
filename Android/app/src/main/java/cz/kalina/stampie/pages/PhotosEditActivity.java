@@ -1,5 +1,8 @@
 package cz.kalina.stampie.pages;
 
+import java.io.File;
+import java.text.NumberFormat;
+
 import android.animation.TypeConverter;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -13,10 +16,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import java.io.File;
-
 import cz.kalina.stampie.MainActivity;
 import cz.kalina.stampie.R;
+import cz.kalina.stampie.data.dao.DAOFactory;
+import cz.kalina.stampie.data.dao.intf.IPhotoDAO;
+import cz.kalina.stampie.data.entities.Photo;
 import cz.kalina.stampie.utils.Config;
 
 public class PhotosEditActivity extends FragmentActivity {
@@ -30,29 +34,29 @@ public class PhotosEditActivity extends FragmentActivity {
 
     private Uri imageUri = null;
     private File imageFile = null;
-    private int cislo1 = 0;
-/*
+    private long photoId = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.page_soubory_edit);
+        setContentView(R.layout.activity_photos_edit);
 
         try {
             Bundle bundle = getIntent().getExtras();
-            if (bundle != null) {cislo1 = bundle.getInt("cislo1");}
+            if (bundle != null) { photoId = bundle.getInt("photoId");}
 
-            camBtn = (Button)findViewById(R.id.SouboryEditCameraBtn);
+            camBtn = (Button)findViewById(R.id.PhotosEditCameraBtn);
             camBtn.setOnClickListener(cameraButtonListener);
 
-            galBtn = (Button)findViewById(R.id.SouboryEditGaleryBtn);
+            galBtn = (Button)findViewById(R.id.PhotosEditGalleryBtn);
             galBtn.setOnClickListener(galleryButtonListener);
 
-            cncBtn = (Button)findViewById(R.id.SouboryEditCnclBtn);
+            cncBtn = (Button)findViewById(R.id.PhotosEditCancelBtn);
             cncBtn.setOnClickListener(cancelButtonListener);
 
-        } catch (Throwable th) {
-            MainActivity.reportError(this, "Došlo k chybě při inicializaci stránky editace očkování uživatele", th.getMessage());
+        } catch (Exception e) {
+            MainActivity.reportError(this, "Error occured when photo editing initialization", e.getMessage());
         }
     }
 
@@ -62,15 +66,15 @@ public class PhotosEditActivity extends FragmentActivity {
         try {
 
             switch (requestCode) {
-                case R.id.SouboryEditCameraBtn :
+                case R.id.PhotosEditCameraBtn :
                 {
                     if (resultCode == RESULT_OK) {
 
                         //use imageUri here to access the image
                         if (imageUri != null) imageFile = convertCameraImageUriToFile(imageUri);
 
-                        Intent spIntent = new Intent(SouboryEdit.this, SouboryPopis.class);
-                        startActivityForResult(spIntent, R.id.PageSouboryPopis);
+                        Intent spIntent = new Intent(PhotosEditActivity.this, PhotosTitleActivity.class);
+                        startActivityForResult(spIntent, R.id.PagePhotosTitle);
 
                     } else {
 
@@ -84,19 +88,18 @@ public class PhotosEditActivity extends FragmentActivity {
                     }
                 }
                 break;
-                case R.id.SouboryEditGaleryBtn :
+                case R.id.PhotosEditGalleryBtn :
                 {
                     if (resultCode == RESULT_OK) {
 
                         imageFile = convertGaleryImageUriToFile(data.getData());
 
-                        Intent spIntent = new Intent(SouboryEdit.this, SouboryPopis.class);
-                        startActivityForResult(spIntent, R.id.PageSouboryPopis);
+                        Intent spIntent = new Intent(PhotosEditActivity.this, PhotosTitleActivity.class);
+                        startActivityForResult(spIntent, R.id.PagePhotosTitle);
 
                     } else {
 
                         if (resultCode == RESULT_CANCELED) {
-
                             imageFile = null;
                         }
 
@@ -105,46 +108,36 @@ public class PhotosEditActivity extends FragmentActivity {
                     }
                 }
                 break;
-                case R.id.PageSouboryPopis :
+                case R.id.PagePhotosTitle :
                 {
                     if (resultCode == RESULT_OK) {
 
-                        String popis = "";
+                        String title = "";
 
                         Bundle extras = data.getExtras();
-                        if (extras != null) popis = extras.getString("Popis");
+                        if (extras != null) title = extras.getString("Title");
 
-                        if (pm == null) {
+                        try {
 
-                            if (VitakartaActivity.activeUser == null) throw new Exception("Neni k dispozici aktualni uzivatel");
-                            if ((VitakartaActivity.activeUser.getId_poj() == null) ||
-                                    (VitakartaActivity.activeUser.getId_poj().equals(0))) throw new Exception("Neni k dispozici ID aktualniho uzivatele");
+                            IPhotoDAO photoDao = DAOFactory.getInstance().getPhotoDAO();
 
-                            if (pm == null) pm = PojMemoManager.getInstance(VitakartaActivity.activeUser.getId_poj());
-                        }
+                            Photo photo = photoDao.findById(photoId, MainActivity.getDb());
+                            photo.setName(title);
 
-                        if (pm != null) {
+                            photoDao.update(photoId, photo, MainActivity.getDb());
 
-                            String key = "VK_" + TypeConverter.dateTime2StrDensed(Calendar.getInstance());
+                        } catch (Exception e) {
 
-                            try {
+                            String msg = e.getMessage().toLowerCase();
+                            if (msg.contains("outofmemoryexception") || msg.contains("outofmemoryerror"))
+                                MainActivity.reportUserMessage(PhotosEditActivity.this, "Attention", "The photo is too big for saving in your device.");
+                            else
+                                MainActivity.reportUserMessage(PhotosEditActivity.this, "Attention", "The photo cannot be saved, error occured.");
 
-                                pm.addSoubory(popis, VitakartaActivity.activeUser.getRodcis(), key, imageFile, cislo1);
+                            setResult(RESULT_CANCELED);
+                            finish();
 
-                            } catch (Exception e) {
-
-                                // ulozeni se nepovedlo
-                                String msg = e.getMessage().toLowerCase();
-                                if (msg.contains("outofmemoryexception") || msg.contains("outofmemoryerror"))
-                                    VitakartaActivity.reportUserMessage(SouboryEdit.this, "Upozornění", "Soubor je pro zpracovaní ve Vašem zařízení příliš velký. Bližší informace naleznete v nápovědě.");
-                                else
-                                    VitakartaActivity.reportUserMessage(SouboryEdit.this, "Upozornění", "Nelze korektně uložit obsah stahovaného souboru, došlo k chybě komunikace se serverem.");
-
-                                setResult(RESULT_CANCELED);
-                                finish();
-
-                                return;
-                            }
+                            return;
                         }
 
                         setResult(RESULT_OK);
@@ -154,8 +147,8 @@ public class PhotosEditActivity extends FragmentActivity {
                 break;
             }
 
-        } catch (Throwable th) {
-            VitakartaActivity.reportError(SouboryEdit.this, "Došlo k chybě při přidání nového souboru", th.toString());
+        } catch (Exception e) {
+            MainActivity.reportError(PhotosEditActivity.this, "Došlo k chybě při přidání nového souboru", e.toString());
         }
     }
 
@@ -212,7 +205,7 @@ public class PhotosEditActivity extends FragmentActivity {
 
                 if (!Config.getUseCard(true)) {
 
-                    VitakartaActivity.reportUserMessage(SouboryEdit.this, "Upozornění", "Fotoaparát lze použít pouze spolu s paměťovou kartou");
+                    MainActivity.reportUserMessage(PhotosEditActivity.this, "Upozornění", "Fotoaparát lze použít pouze spolu s paměťovou kartou");
                     return;
                 }
 
@@ -244,7 +237,7 @@ public class PhotosEditActivity extends FragmentActivity {
                     imageUri = getContentResolver().insert(Config.getUseCard(true) ? MediaStore.Images.Media.EXTERNAL_CONTENT_URI : MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
                 } catch (Exception e) {
                     Log.e("Vitakarta", "Chyba SouboryEdit: " + e.getMessage(), e);
-                    VitakartaActivity.reportUserMessage(SouboryEdit.this, "Upozornění", "Zařízení nemá přístup k úložišti souborů, pořízený snímek by nebylo možné uložit" + (Config.getUseCard(true) ? ", zkontrolujte přítomnost paměťové karty." : "."));
+                    MainActivity.reportUserMessage(PhotosEditActivity.this, "Upozornění", "Zařízení nemá přístup k úložišti souborů, pořízený snímek by nebylo možné uložit" + (Config.getUseCard(true) ? ", zkontrolujte přítomnost paměťové karty." : "."));
                     return;
                 }
 
@@ -252,10 +245,10 @@ public class PhotosEditActivity extends FragmentActivity {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-                startActivityForResult(intent, R.id.SouboryEditCameraBtn);
+                startActivityForResult(intent, R.id.PhotosEditCameraBtn);
 
-            } catch (Exception ex) {
-                VitakartaActivity.reportError(SouboryEdit.this, "Došlo k chybě při uložení nového souboru", ex.toString());
+            } catch (Exception e) {
+                MainActivity.reportError(PhotosEditActivity.this, "Error occured when saving new photo", e.toString());
             }
 
         }
@@ -271,8 +264,8 @@ public class PhotosEditActivity extends FragmentActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Vybrat snímek"), R.id.SouboryEditGaleryBtn);
 
-            } catch (Exception ex) {
-                VitakartaActivity.reportError(SouboryEdit.this, "Došlo k chybě při uložení nového souboru", ex.toString());
+            } catch (Exception e) {
+                MainActivity.reportError(PhotosEditActivity.this, "Došlo k chybě při uložení nového souboru", e.toString());
             }
 
         }
@@ -286,11 +279,9 @@ public class PhotosEditActivity extends FragmentActivity {
                 setResult(RESULT_CANCELED);
                 finish();
 
-            } catch (Exception ex) {
-                VitakartaActivity.reportError(SouboryEdit.this, "Došlo k chybě při zrušení editace souboru", ex.getMessage());
+            } catch (Exception e) {
+                MainActivity.reportError(PhotosEditActivity.this, "Došlo k chybě při zrušení editace souboru", e.getMessage());
             }
-
         }
     };
-*/
 }
