@@ -3,7 +3,6 @@ package cz.kalina.stampie.pages;
 import java.io.File;
 import java.text.NumberFormat;
 
-import android.animation.TypeConverter;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -203,6 +202,8 @@ public class PhotosEditActivity extends FragmentActivity {
 
             try {
 
+                boolean useCards = true;//Config.getUseCard(true);
+/*
                 if (!Config.getUseCard(true)) {
 
                     MainActivity.reportUserMessage(PhotosEditActivity.this, "Upozornění", "Fotoaparát lze použít pouze spolu s paměťovou kartou");
@@ -221,7 +222,7 @@ public class PhotosEditActivity extends FragmentActivity {
                     imageFileIndex++;
                     Config.putCameraImageId(imageFileIndex);
                 }
-
+*/
                 //define the file-name to save photo taken by Camera activity
                 NumberFormat form = NumberFormat.getInstance();
                 form.setMinimumIntegerDigits(4);
@@ -234,10 +235,10 @@ public class PhotosEditActivity extends FragmentActivity {
 
                 //imageUri is the current activity attribute, define and save it for later usage (also in onSaveInstanceState)
                 try {
-                    imageUri = getContentResolver().insert(Config.getUseCard(true) ? MediaStore.Images.Media.EXTERNAL_CONTENT_URI : MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
+                    imageUri = getContentResolver().insert(useCards ? MediaStore.Images.Media.EXTERNAL_CONTENT_URI : MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
                 } catch (Exception e) {
                     Log.e("Vitakarta", "Chyba SouboryEdit: " + e.getMessage(), e);
-                    MainActivity.reportUserMessage(PhotosEditActivity.this, "Upozornění", "Zařízení nemá přístup k úložišti souborů, pořízený snímek by nebylo možné uložit" + (Config.getUseCard(true) ? ", zkontrolujte přítomnost paměťové karty." : "."));
+                    MainActivity.reportUserMessage(PhotosEditActivity.this, "Upozornění", "Zařízení nemá přístup k úložišti souborů, pořízený snímek by nebylo možné uložit" + (useCards ? ", zkontrolujte přítomnost paměťové karty." : "."));
                     return;
                 }
 
@@ -262,7 +263,7 @@ public class PhotosEditActivity extends FragmentActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Vybrat snímek"), R.id.SouboryEditGaleryBtn);
+                startActivityForResult(Intent.createChooser(intent, "Vybrat snímek"), R.id.PhotosEditGalleryBtn);
 
             } catch (Exception e) {
                 MainActivity.reportError(PhotosEditActivity.this, "Došlo k chybě při uložení nového souboru", e.toString());

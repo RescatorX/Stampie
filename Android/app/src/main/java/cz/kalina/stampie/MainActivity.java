@@ -142,6 +142,26 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.getInstance(), MapActivity.class));
     }
 
+    public void showStamps(View view) {
+        //startActivity(new Intent(MainActivity.getInstance(), StampsActivity.class));
+    }
+
+    public void showPhotos(View view) {
+        //startActivity(new Intent(MainActivity.getInstance(), PhotosActivity.class));
+    }
+
+    public void showGames(View view) {
+        //startActivity(new Intent(MainActivity.getInstance(), GamesActivity.class));
+    }
+
+    public void showComments(View view) {
+        //startActivity(new Intent(MainActivity.getInstance(), ReviewsActivity.class));
+    }
+
+    public void showStatistics(View view) {
+        //startActivity(new Intent(MainActivity.getInstance(), StatisticsActivity.class));
+    }
+
     public static void NotifyUpload() {
         notify("mVITAKARTA synchronizace dat", "Ukládání příchozích změn dat na server...");
     }

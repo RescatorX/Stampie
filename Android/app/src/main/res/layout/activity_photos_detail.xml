@@ -50,7 +50,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/PtohosDetailSize"
+        android:id="@+id/PhotosDetailSize"
         android:paddingLeft="10dp"
         android:paddingRight="5dp"
         android:textSize="14dp"

@@ -37,7 +37,7 @@ public class PhotosActivity extends ListActivity {
             setContentView(R.layout.activity_photos);
 
             Bundle bundle = getIntent().getExtras();
-            if (photoId == 0) photoId = bundle.getInt("photoId");
+            if (photoId == 0) photoId = bundle.getLong("photoId");
 
             if (photoId != 0 && currentPhoto == null) {
 

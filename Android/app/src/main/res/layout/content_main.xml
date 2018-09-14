@@ -9,11 +9,71 @@
     tools:showIn="@layout/activity_main">
 
     <Button
-        android:id="@+id/LekMapsDetailTelefonBtn"
-        android:text="Mapa"
+        android:id="@+id/MainShowMapBtn"
+        android:text="Map"
         android:onClick="showMap"
         android:textSize="20dp"
         android:drawableLeft="@drawable/mapdet_web"
+        android:drawablePadding="5dp"
+        android:paddingLeft="20dp"
+        android:gravity="left|center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/MainShowStampsBtn"
+        android:text="Stamps"
+        android:onClick="showStamps"
+        android:textSize="20dp"
+        android:drawableLeft="@drawable/mapdet_gears"
+        android:drawablePadding="5dp"
+        android:paddingLeft="20dp"
+        android:gravity="left|center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/MainShowGamesBtn"
+        android:text="Gamess"
+        android:onClick="showGames"
+        android:textSize="20dp"
+        android:drawableLeft="@drawable/mapdet_mobil"
+        android:drawablePadding="5dp"
+        android:paddingLeft="20dp"
+        android:gravity="left|center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/MainShowCommentsBtn"
+        android:text="Comments"
+        android:onClick="showComments"
+        android:textSize="20dp"
+        android:drawableLeft="@drawable/mapdet_phone"
+        android:drawablePadding="5dp"
+        android:paddingLeft="20dp"
+        android:gravity="left|center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/MainShowStatisticsBtn"
+        android:text="Statistics"
+        android:onClick="showStatistics"
+        android:textSize="20dp"
+        android:drawableLeft="@drawable/mapdet_email"
         android:drawablePadding="5dp"
         android:paddingLeft="20dp"
         android:gravity="left|center_vertical"
