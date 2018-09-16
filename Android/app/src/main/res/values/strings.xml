@@ -1,9 +1,10 @@
 <resources>
 
     <string name="app_name">Stampie</string>
-    <string name="app_version">2.1</string>
-    <string name="app_copyright">2011 OZP</string>
-    <string name="app_producer">STYRAX, a.s.</string>
+    <string name="app_version">0.2</string>
+    <string name="app_copyright">2018</string>
+    <string name="app_producer">Kalina</string>
+    <string name="google_maps_key">AIzaSyAWUi0kRKa7TDxfyDd9czXCe7OozKNUFTs</string>
 
     <string name="title_activity_main">Stampie</string>
     <string name="menu_action_settings">Settings</string>
