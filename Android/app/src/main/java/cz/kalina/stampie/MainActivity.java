@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,11 +23,22 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import cz.kalina.stampie.data.Database;
 import cz.kalina.stampie.data.adapters.ImageClassAdapter;
+import cz.kalina.stampie.data.entities.Stamp;
 import cz.kalina.stampie.data.entities.User;
 import cz.kalina.stampie.pages.MapActivity;
 import cz.kalina.stampie.pages.PhotosActivity;
@@ -37,12 +49,16 @@ import cz.kalina.stampie.utils.AlertDialogThread;
 import cz.kalina.stampie.utils.Config;
 import cz.kalina.stampie.utils.ImageClassPair;
 import cz.kalina.stampie.utils.NotificationReceiver;
+import cz.kalina.stampie.utils.StampRecord;
 
 @SuppressWarnings("unchecked")
 public class MainActivity extends AppCompatActivity {
 
     private static MainActivity instance = null;
     public static final Boolean isProVersion = true;
+
+    private static final String stampsUrl = "https://www.turisticke-znamky.cz/export.php?item=1&type=csv";
+    private static final int stampRecordColumnCount = 29;
 
     private final static String prefsFileName = "StampiePrefs";
 
@@ -142,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showStamps(View view) {
-        //startActivity(new Intent(MainActivity.getInstance(), StampsActivity.class));
+        startActivity(new Intent(MainActivity.getInstance(), StampsActivity.class));
     }
 
     public void showPhotos(View view) {
@@ -336,5 +352,100 @@ public class MainActivity extends AppCompatActivity {
         Config.putHeslo(heslo);
         Config.putAutoSync(poStartu);
 */
+    }
+
+    public static List<StampRecord> GetAllStamps() {
+
+        List<StampRecord> stamps = new ArrayList<StampRecord>();
+
+        try {
+
+            HttpURLConnection conn = null;
+            try {
+                URL url = new URL(stampsUrl);
+
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
+
+                InputStream is = conn.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+                // read first line with column titles
+                String line = br.readLine();
+
+                // read rest of document
+                while ((line = br.readLine()) != null) {
+
+                    if (line != null) {
+                        stamps.add(parseStampRecord(line));
+                    }
+                }
+
+            } catch (Exception ex) {
+                throw ex;
+            } finally {
+                if (conn != null) {
+                    conn.disconnect();
+                }
+            }
+
+            Log.i("Stampie", "There was downloaded " + stamps.size() + " stamps from server");
+
+        } catch (Exception e) {
+            Log.e("Stampie", "Error occured when downloading data into map: " + e.getMessage());
+        }
+
+        return stamps;
+    }
+
+    public static StampRecord parseStampRecord(String stampLine) {
+
+        StampRecord record = new StampRecord();
+
+        String[] stampLineParts = stampLine.split(";");
+        if (stampLineParts.length < stampRecordColumnCount) {
+
+        } else {
+
+            record.stampId = Integer.parseInt(stampLineParts[0]);
+            record.name = stampLineParts[1];
+            record.category = stampLineParts[2];
+            record.county = stampLineParts[3];
+
+            DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+            Date date = null;
+            try {
+                date = format.parse(stampLineParts[4]);
+            } catch (ParseException ex) {}
+            if (date != null) { record.published = date; }
+
+            record.sellingPlace1 = stampLineParts[5];
+            record.sellingPlace1Web = stampLineParts[6];
+            record.sellingPlace2 = stampLineParts[7];
+            record.sellingPlace2Web = stampLineParts[8];
+            record.sellingPlace3 = stampLineParts[9];
+            record.sellingPlace3Web = stampLineParts[10];
+            record.sellingPlace4 = stampLineParts[11];
+            record.sellingPlace4Web = stampLineParts[12];
+            record.sellingPlace5 = stampLineParts[13];
+            record.sellingPlace5Web = stampLineParts[14];
+            record.sellingPlace6 = stampLineParts[15];
+            record.sellingPlace6Web = stampLineParts[16];
+            record.sellingPlace7 = stampLineParts[17];
+            record.sellingPlace7Web = stampLineParts[18];
+            record.sellingPlace8 = stampLineParts[19];
+            record.sellingPlace8Web = stampLineParts[20];
+            record.sellingPlace9 = stampLineParts[21];
+            record.sellingPlace9Web = stampLineParts[22];
+            record.sellingPlace10 = stampLineParts[23];
+            record.sellingPlace10Web = stampLineParts[24];
+            record.sellingPlace11 = stampLineParts[25];
+            record.sellingPlace11Web = stampLineParts[26];
+            record.gpsPositionLat = Double.parseDouble(stampLineParts[27]);
+            record.gpsPositionLng = Double.parseDouble(stampLineParts[28]);
+        }
+
+        return record;
     }
 }

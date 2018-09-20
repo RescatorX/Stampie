@@ -33,11 +33,11 @@ public class StampRecord implements ClusterItem {
     public String       sellingPlace10Web;
     public String       sellingPlace11;
     public String       sellingPlace11Web;
-    public Double       GpsPositionLat;
-    public Double       GpsPositionLng;
+    public Double       gpsPositionLat;
+    public Double       gpsPositionLng;
 
     public LatLng getPosition() {
-        return new LatLng(GpsPositionLat, GpsPositionLng);
+        return new LatLng(gpsPositionLat, gpsPositionLng);
     }
 
     public String getTitle() {

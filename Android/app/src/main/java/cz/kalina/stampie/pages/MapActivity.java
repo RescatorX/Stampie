@@ -77,8 +77,6 @@ import cz.kalina.stampie.utils.GPSLocationListener;
 
 public class MapActivity extends FragmentActivity implements OnCameraMoveStartedListener, OnCameraMoveListener, OnCameraMoveCanceledListener, OnCameraIdleListener, OnMapReadyCallback, OnMarkerClickListener {
 
-    private static final String stampsUrl = "https://www.turisticke-znamky.cz/export.php?item=1&type=csv";
-    private static final int stampRecordColumnCount = 29;
     private static final int LOCATION_UPDATE_MIN_DISTANCE = 10;
     private static final int LOCATION_UPDATE_MIN_TIME = 5000;
 
@@ -483,38 +481,8 @@ public class MapActivity extends FragmentActivity implements OnCameraMoveStarted
             Float y2 = (float)llb.northeast.latitude;
 
             Log.i("Stampie", "Data downloading in rect: " + x1 + ", " + y1 + " : " + x2 + ", " + y2);
-            stamps = new ArrayList<StampRecord>();
+            stamps = MainActivity.GetAllStamps();
             groups = new HashMap<MapPosition, List<StampRecord>>();
-
-            HttpURLConnection conn = null;
-            try {
-                URL url = new URL(stampsUrl);
-
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.connect();
-
-                InputStream is = conn.getInputStream();
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-                // read first line with column titles
-                String line = br.readLine();
-
-                // read rest of document
-                while ((line = br.readLine()) != null) {
-
-                    if (line != null) {
-                        stamps.add(parseStampRecord(line));
-                    }
-                }
-
-            } catch (Exception ex) {
-                throw ex;
-            } finally {
-                if (conn != null) {
-                    conn.disconnect();
-                }
-            }
 
             groups.clear();
             for (StampRecord m : stamps) {
@@ -547,7 +515,7 @@ public class MapActivity extends FragmentActivity implements OnCameraMoveStarted
                 } else {
                     xstamps = new ArrayList<StampRecord>();
                     xstamps.add(m);
-                    groups.put(new MapPosition(m.GpsPositionLat.floatValue(), m.GpsPositionLng.floatValue()), xstamps);
+                    groups.put(new MapPosition(m.gpsPositionLat.floatValue(), m.gpsPositionLng.floatValue()), xstamps);
                 }
             }
 
@@ -556,56 +524,6 @@ public class MapActivity extends FragmentActivity implements OnCameraMoveStarted
         } catch (Exception e) {
             Log.e("Stampie", "Error occured when downloading data into map: " + e.getMessage());
         }
-    }
-
-    private StampRecord parseStampRecord(String stampLine) {
-
-        StampRecord record = new StampRecord();
-
-        String[] stampLineParts = stampLine.split(";");
-        if (stampLineParts.length < stampRecordColumnCount) {
-
-        } else {
-
-            record.stampId = Integer.parseInt(stampLineParts[0]);
-            record.name = stampLineParts[1];
-            record.category = stampLineParts[2];
-            record.county = stampLineParts[3];
-
-            DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
-            Date date = null;
-            try {
-                date = format.parse(stampLineParts[4]);
-            } catch (ParseException ex) {}
-            if (date != null) { record.published = date; }
-
-            record.sellingPlace1 = stampLineParts[5];
-            record.sellingPlace1Web = stampLineParts[6];
-            record.sellingPlace2 = stampLineParts[7];
-            record.sellingPlace2Web = stampLineParts[8];
-            record.sellingPlace3 = stampLineParts[9];
-            record.sellingPlace3Web = stampLineParts[10];
-            record.sellingPlace4 = stampLineParts[11];
-            record.sellingPlace4Web = stampLineParts[12];
-            record.sellingPlace5 = stampLineParts[13];
-            record.sellingPlace5Web = stampLineParts[14];
-            record.sellingPlace6 = stampLineParts[15];
-            record.sellingPlace6Web = stampLineParts[16];
-            record.sellingPlace7 = stampLineParts[17];
-            record.sellingPlace7Web = stampLineParts[18];
-            record.sellingPlace8 = stampLineParts[19];
-            record.sellingPlace8Web = stampLineParts[20];
-            record.sellingPlace9 = stampLineParts[21];
-            record.sellingPlace9Web = stampLineParts[22];
-            record.sellingPlace10 = stampLineParts[23];
-            record.sellingPlace10Web = stampLineParts[24];
-            record.sellingPlace11 = stampLineParts[25];
-            record.sellingPlace11Web = stampLineParts[26];
-            record.GpsPositionLat = Double.parseDouble(stampLineParts[27]);
-            record.GpsPositionLng = Double.parseDouble(stampLineParts[28]);
-        }
-
-        return record;
     }
 
     public static Handler loadedHandler = new Handler(Looper.getMainLooper()) {

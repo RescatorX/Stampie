@@ -16,7 +16,7 @@ public class Photo extends BaseEntity {
     public Photo() {
     }
 
-    public Photo(String name, String description, String content,long dataLength, double gpsPositionLat, double gpsPositionLng, User creator, Calendar created) {
+    public Photo(String name, String description, String content, long dataLength, double gpsPositionLat, double gpsPositionLng, User creator, Calendar created) {
         this.name = name;
         this.description = description;
         this.content = content;

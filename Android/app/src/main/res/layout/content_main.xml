@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffffff">
+    android:background="@drawable/wood">
 
     <Button
         android:id="@+id/MainShowMapBtn"
@@ -18,24 +18,32 @@
         android:gravity="left|center_vertical"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="100dp"
+        android:elevation="3dp"
+        android:translationZ="3dp"
+        android:background="@drawable/btn_rounded"/>
 
     <Button
         android:id="@+id/MainShowStampsBtn"
         android:text="Stamps"
         android:onClick="showStamps"
         android:textSize="20dp"
-        android:drawableLeft="@drawable/mapdet_gears"
+        android:drawableLeft="@drawable/oblasti_osobni_denik"
         android:drawablePadding="5dp"
         android:paddingLeft="20dp"
         android:gravity="left|center_vertical"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="100dp"
+        android:background="@drawable/btn_rounded"/>
 
     <Button
         android:id="@+id/MainShowGamesBtn"
@@ -48,9 +56,14 @@
         android:gravity="left|center_vertical"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="100dp"
+        android:elevation="3dp"
+        android:translationZ="3dp"
+        android:background="@drawable/btn_rounded"/>
 
     <Button
         android:id="@+id/MainShowCommentsBtn"
@@ -63,9 +76,14 @@
         android:gravity="left|center_vertical"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="100dp"
+        android:elevation="3dp"
+        android:translationZ="3dp"
+        android:background="@drawable/btn_rounded"/>
 
     <Button
         android:id="@+id/MainShowStatisticsBtn"
@@ -78,9 +96,14 @@
         android:gravity="left|center_vertical"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="100dp"
+        android:elevation="3dp"
+        android:translationZ="3dp"
+        android:background="@drawable/btn_rounded"/>
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview"

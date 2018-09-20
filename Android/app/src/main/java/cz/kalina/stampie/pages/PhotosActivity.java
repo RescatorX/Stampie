@@ -15,14 +15,14 @@ import cz.kalina.stampie.R;
 import cz.kalina.stampie.MainActivity;
 import cz.kalina.stampie.data.dao.DAOFactory;
 import cz.kalina.stampie.data.dao.intf.*;
-import cz.kalina.stampie.data.adapters.PhotosListAdapter;
+import cz.kalina.stampie.data.adapters.PhotoListAdapter;
 import cz.kalina.stampie.data.entities.Photo;
 import cz.kalina.stampie.utils.STPException;
 
 public class PhotosActivity extends ListActivity {
 
     private List<Photo> photos = null;
-    private PhotosListAdapter adapter = null;
+    private PhotoListAdapter adapter = null;
     private long photoId = 0;
     private Photo currentPhoto = null;
     private IPhotoDAO photoDao = null;
@@ -68,7 +68,7 @@ public class PhotosActivity extends ListActivity {
 
             if (MainActivity.activeUser == null) throw new Exception("Cannot obtain current user object");
 
-            adapter = new PhotosListAdapter(MainActivity.getContext(), MainActivity.activeUser, photos);
+            adapter = new PhotoListAdapter(MainActivity.getContext(), MainActivity.activeUser, photos);
             setListAdapter(adapter);
 
             getPhotos();

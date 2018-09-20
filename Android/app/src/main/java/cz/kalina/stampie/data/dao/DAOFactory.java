@@ -6,8 +6,10 @@ import cz.kalina.stampie.MainActivity;
 import cz.kalina.stampie.data.Database;
 import cz.kalina.stampie.data.dao.impl.ExtDataDAO;
 import cz.kalina.stampie.data.dao.impl.PhotoDAO;
+import cz.kalina.stampie.data.dao.impl.StampDAO;
 import cz.kalina.stampie.data.dao.intf.IExtDataDAO;
 import cz.kalina.stampie.data.dao.intf.IPhotoDAO;
+import cz.kalina.stampie.data.dao.intf.IStampDAO;
 
 public class DAOFactory {
 
@@ -88,5 +90,14 @@ public class DAOFactory {
      */
     public IPhotoDAO getPhotoDAO() {
         return new PhotoDAO();
+    }
+
+    /**
+     * Factory method to provide an instance of the IStampDAO.
+     *
+     * @return IStampDAO to access the table with stamps.
+     */
+    public IStampDAO getStampDAO() {
+        return new StampDAO();
     }
 }
