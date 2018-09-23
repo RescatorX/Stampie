@@ -233,6 +233,7 @@
     <Compile Include="Areas\WebApi\Controllers\UserController.cs" />
     <Compile Include="Areas\WebApi\Models\AddCommentModel.cs" />
     <Compile Include="Areas\WebApi\WebApiAreaRegistration.cs" />
+    <Compile Include="Areas\Web\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Web\WebAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Web\Views\Default\Default.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -305,6 +307,9 @@
     </Content>
     <Content Include="Areas\Web\Views\web.config" />
     <Content Include="Areas\WebApi\Views\web.config" />
+    <Content Include="Areas\Web\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Web\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Web\Views\Default\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -354,9 +359,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\WebApi\Views\Shared\" />
-    <Folder Include="Areas\Web\Controllers\" />
     <Folder Include="Areas\Web\Models\" />
-    <Folder Include="Areas\Web\Views\Shared\" />
     <Folder Include="Data\Repositories\" />
   </ItemGroup>
   <ItemGroup>
